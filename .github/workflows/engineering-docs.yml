@@ -5,11 +5,19 @@ on:
     - cron: '0 13 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
+concurrency:
+  group: engineering-docs
+  cancel-in-progress: false
+
 jobs:
   engineering-docs:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           token: ${{ secrets.MY_TOKEN }}
 
