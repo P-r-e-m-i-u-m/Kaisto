@@ -1,0 +1,31 @@
+name: Daily Repo Rename
+
+on:
+  schedule:
+    - cron: '0 3 * * *'   # runs daily at 3:00 AM UTC
+  workflow_dispatch:        # lets you trigger manually if you ever want
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate new name and rename repo
+        env:
+          TOKEN: ${{ secrets.RENAME_TOKEN }}
+          OWNER: P-r-e-m-i-u-m
+          REPO: ${{ github.event.repository.name }}
+        run: |
+          PREFIX=(Zen Fin Cor Vex Nim Qua Lum Pax Bri Tor Vel Nex Dax Kai Rho Sol Ari Ory Ely Fyn Jax Ovi Ren Tez Wyn)
+          SUFFIX=(tra bix lyft dex ify ora vion tix ova lux nix zen ple quo rin sto mia tal ric don pex lo va co it)
+
+          P=${PREFIX[$RANDOM % ${#PREFIX[@]}]}
+          S=${SUFFIX[$RANDOM % ${#SUFFIX[@]}]}
+
+          NEW_NAME="${P}${S}"
+          echo "New name: $NEW_NAME"
+
+          curl -s -X PATCH \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$OWNER/$REPO" \
+            -d "{\"name\":\"$NEW_NAME\"}"
