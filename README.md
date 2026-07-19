@@ -49,6 +49,7 @@ flowchart LR
   Services --> ComplianceLog["Compliance logger"]
   Middleware --> SecretsManager["Secrets manager"]
   Services --> Analytics["Analytics pipeline"]
+  Services --> MLInference["ML inference"]
 ```
 
 ## Tech Stack
