@@ -6,5 +6,5 @@ const scheduleRetry = (queueName, job, delay) => {
     });
   }, delay);
   timer.unref();
-};  // Fixed memory leak - Updated: 2026-07-10
-// build: 1783689015
+};  // Fixed memory leak - Updated: 2026-07-20
+// build: 1784552678
